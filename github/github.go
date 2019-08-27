@@ -64,7 +64,8 @@ func LoginHandler(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	session.Set("state", state)
 	session.Save()
-	ctx.Writer.Write([]byte("<html><title>Golang Github</title> <body> <a href='" + GetLoginURL(state) + "'><button>Login with GitHub!</button> </a> </body></html>"))
+	ctx.JSON(http.StatusOK, gin.H{"url": GetLoginURL(state), "session": state})
+
 }
 
 func GetLoginURL(state string) string {
